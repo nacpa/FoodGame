@@ -27,7 +27,9 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  lottie: ^1.3.0
   camera: ^0.9.6
+  get: ^4.6.5
   flutter:
     sdk: flutter
 
@@ -35,6 +37,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+#  lottie: ^1.3.0
 
 dev_dependencies:
   flutter_test:
@@ -74,12 +77,12 @@ assets:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
+fonts:
+  - family: Macondo
+    fonts:
+      - asset: fonts/Macondo-Regular.ttf
+#      - asset: fonts/Macondo-Italic.ttf
+        style: italic
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

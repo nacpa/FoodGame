@@ -2,6 +2,8 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'DisplayPicture.dart';
 
 class TakePictureScreen extends StatefulWidget {
@@ -11,6 +13,7 @@ class TakePictureScreen extends StatefulWidget {
   });
 
   final CameraDescription camera;
+
 
   @override
   TakePictureScreenState createState() => TakePictureScreenState();
@@ -24,7 +27,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   void initState() {
     super.initState();
     // To display the current output from the Camera,
-    // create a CameraController.
+    // create a CameraController
     _controller = CameraController(
       // Get a specific camera from the list of available cameras.
       widget.camera,
@@ -46,19 +49,24 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(children: [Column(
+      body: Stack(children: [
+        Column(
         children: [
+          SizedBox(height: 40,),
           Container(
             height: 250,
             width: double.maxFinite,
+            child: Lottie.network("https://assets2.lottiefiles.com/packages/lf20_TmewUx.json"),
           ),
+
           Expanded(
             child: Container(
-              decoration: BoxDecoration(
+              decoration: BoxDecoration(boxShadow: [BoxShadow(offset: Offset(2,2),blurRadius: 3,spreadRadius:3 ,color: Colors.grey.shade300)],
                 borderRadius: BorderRadius.only(
                     topRight: Radius.circular(50),
                     topLeft: Radius.circular(50)),
-                color: Colors.grey.shade200,
+                color: Colors.white,
+
               ),
               child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -76,11 +84,12 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                                   "http://clipart-library.com/images/ziXoyRA7T.png"))),
                     ),
                     Container(
+
                       height: 230,
                       width: 230,
                       decoration: BoxDecoration(
-                          color: Colors.green,
-                          borderRadius: BorderRadius.circular(80)),
+                          color: Colors.black54,
+                          borderRadius: BorderRadius.circular(90)),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(300),
                         child: AspectRatio(
@@ -108,53 +117,40 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                           image: DecorationImage(
                               fit: BoxFit.cover,
                               image: NetworkImage(
-                                  "https://img.favpng.com/3/5/8/spoon-hot-thoughts-do-you-nefarious-they-want-my-soul-png-favpng-FqAYTzJ4FHZEtQJABD5aSFAWb.jpg"))),
+                                  "http://clipart-library.com/new_gallery/27-277548_hd-transparent-images-pluspng-transparent-transparent-background-spoon.png"))),
                     ),
                   ],
                 ),
-                Text("Click Your Meal",style: TextStyle(color: Colors.grey.shade900,fontSize: 30,fontStyle: FontStyle.italic),)
+                Text("Click Your Meal",style: TextStyle(fontFamily:'Macondo',fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,
+                    color: Colors.grey.shade900,fontSize: 30),)
               ],),
             ),
           )
         ],
       ),
-
-      Positioned(top: 50,left: 10,
+        Positioned(top: 50,left: 10,
           child: Container(child: Icon(Icons.arrow_back_ios_new,color: Colors.white,size: 35,),
             height: 50,width: 50,decoration: BoxDecoration(borderRadius: BorderRadius.circular(50),color: Colors.green.shade900),))
       ],),
       floatingActionButton: FloatingActionButton(backgroundColor: Colors.green.shade900,
 
 
-        // Provide an onPressed callback.
         onPressed: () async {
-          // Take the Picture in a try / catch block. If anything goes wrong,
-          // catch the error.
           try {
-            // Ensure that the camera is initialized.
             await _initializeControllerFuture;
 
-            // Attempt to take a picture and get the file `image`
-            // where it was saved.
             final image = await _controller.takePicture();
 
-            // If the picture was taken, display it on a new screen.
-            await Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => DisplayPictureScreen(
-                  // Pass the automatically generated path to
-                  // the DisplayPictureScreen widget.
-                  imagePath: image.path,
-                ),
-              ),
-            );
+           await Get.to(DisplayPictureScreen(
+             imagePath: image.path,
+           ),transition: Transition.fade);
           } catch (e) {
-            // If an error occurs, log the error to the console.
             print(e);
           }
         },
         child: const Icon(Icons.camera_alt),
-      ),floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterFloat,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterFloat,
     );
   }
 }
