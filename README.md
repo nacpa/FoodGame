@@ -1,5 +1,5 @@
 A kids game  for  healthy meal.
-capture pic of food and suggest about meal.
+capture image  of food and suggest about meal.
 
 
 
